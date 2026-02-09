@@ -24,9 +24,9 @@
                             </span>
                         </div>
                         <div class="hidden sm:ml-12 sm:flex sm:space-x-8">
-                            <a href="#" class="border-ismart-blue text-slate-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-semibold">Dashboard</a>
-                            <a href="#" class="border-transparent text-slate-500 hover:text-ismart-blue hover:border-slate-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-all duration-200">Kuis Mandiri</a>
-                            <a href="#" class="border-transparent text-slate-500 hover:text-ismart-blue hover:border-slate-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-all duration-200">Riwayat Belajar</a>
+                            <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'border-ismart-blue text-slate-900' : 'border-transparent text-slate-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-semibold hover:text-ismart-blue transition-all duration-200">Dashboard</a>
+                            <a href="{{ route('quizzes.index') }}" class="{{ request()->routeIs('quizzes.*') ? 'border-ismart-blue text-slate-900' : 'border-transparent text-slate-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium hover:text-ismart-blue transition-all duration-200">Kuis Mandiri</a>
+                            <a href="{{ route('history') }}" class="{{ request()->routeIs('history') ? 'border-ismart-blue text-slate-900' : 'border-transparent text-slate-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium hover:text-ismart-blue transition-all duration-200">Riwayat Belajar</a>
                         </div>
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:items-center space-x-6">

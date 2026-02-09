@@ -9,13 +9,13 @@
                 Selamat Datang kembali, <span class="text-ismart-yellow">Ahmad!</span> 👋
             </h1>
             <p class="mt-4 text-white/80 text-lg md:text-xl font-medium">
-                Siap untuk mengasah kemampuanmu hari ini? Ada 5 kuis baru yang menunggu untuk kamu taklukkan.
+                Siap untuk mengasah kemampuanmu hari ini? Ada beberapa kuis baru yang menunggu untuk kamu taklukkan.
             </p>
             <div class="mt-8 flex flex-wrap gap-4">
-                <a href="#" class="px-8 py-4 bg-white text-ismart-blue font-bold rounded-2xl hover:bg-slate-50 transition-all duration-200 shadow-lg shadow-black/5">
+                <a href="{{ route('quizzes.index') }}" class="px-8 py-4 bg-white text-ismart-blue font-bold rounded-2xl hover:bg-slate-50 transition-all duration-200 shadow-lg shadow-black/5">
                     Mulai Belajar
                 </a>
-                <a href="#" class="px-8 py-4 bg-white/20 text-white font-bold rounded-2xl border border-white/30 backdrop-blur-sm hover:bg-white/30 transition-all duration-200">
+                <a href="{{ route('history') }}" class="px-8 py-4 bg-white/20 text-white font-bold rounded-2xl border border-white/30 backdrop-blur-sm hover:bg-white/30 transition-all duration-200">
                     Lihat Progres
                 </a>
             </div>
@@ -29,7 +29,7 @@
     <section>
         <div class="flex items-center justify-between mb-6">
             <h2 class="text-2xl font-bold text-slate-800 tracking-tight">Ringkasan Aktivitas</h2>
-            <a href="#" class="text-ismart-blue font-bold text-sm hover:underline">Lihat Detail</a>
+            <a href="{{ route('history') }}" class="text-ismart-blue font-bold text-sm hover:underline">Lihat Detail</a>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Stat 1 -->
@@ -91,58 +91,23 @@
             <h2 class="text-2xl font-bold text-slate-800 tracking-tight">Kuis Populer untuk Kamu</h2>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            @foreach($popularQuizzes as $quiz)
              <div class="bg-white rounded-3xl overflow-hidden border border-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group">
-                <div class="h-32 bg-ismart-blue/10 flex items-center justify-center group-hover:bg-ismart-blue/20 transition-colors">
-                     <span class="text-4xl">📐</span>
+                <div class="h-32 {{ $loop->index % 4 == 0 ? 'bg-ismart-blue/10' : ($loop->index % 4 == 1 ? 'bg-ismart-green/10' : ($loop->index % 4 == 2 ? 'bg-ismart-red/10' : 'bg-ismart-purple/10')) }} flex items-center justify-center group-hover:opacity-80 transition-opacity">
+                     <span class="text-4xl">{{ $quiz->icon ?? '📝' }}</span>
                 </div>
                 <div class="p-6">
-                    <span class="px-3 py-1 bg-ismart-blue/10 text-ismart-blue text-[10px] font-bold uppercase rounded-full">Matematika</span>
-                    <h3 class="mt-3 font-bold text-slate-900">Aljabar Dasar</h3>
-                    <p class="mt-1 text-slate-500 text-sm font-medium">15 Soal • 20 Menit</p>
-                    <button class="mt-4 w-full py-3 bg-slate-50 text-slate-900 font-bold rounded-xl hover:bg-ismart-blue hover:text-white transition-all duration-200">
+                    <span class="px-3 py-1 {{ $loop->index % 4 == 0 ? 'bg-ismart-blue/10 text-ismart-blue' : ($loop->index % 4 == 1 ? 'bg-ismart-green/10 text-ismart-green' : ($loop->index % 4 == 2 ? 'bg-ismart-red/10 text-ismart-red' : 'bg-ismart-purple/10 text-ismart-purple')) }} text-[10px] font-bold uppercase rounded-full">
+                        {{ $quiz->category }}
+                    </span>
+                    <h3 class="mt-3 font-bold text-slate-900">{{ $quiz->title }}</h3>
+                    <p class="mt-1 text-slate-500 text-sm font-medium">{{ $quiz->questions_count ?? '15' }} Soal • {{ $quiz->duration_minutes }} Menit</p>
+                    <a href="{{ route('quizzes.show', $quiz->id) }}" class="mt-4 block w-full text-center py-3 bg-slate-50 text-slate-900 font-bold rounded-xl hover:bg-ismart-blue hover:text-white transition-all duration-200">
                         Mulai Kuis
-                    </button>
+                    </a>
                 </div>
              </div>
-             <div class="bg-white rounded-3xl overflow-hidden border border-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group">
-                <div class="h-32 bg-ismart-green/10 flex items-center justify-center group-hover:bg-ismart-green/20 transition-colors">
-                     <span class="text-4xl">🧬</span>
-                </div>
-                <div class="p-6">
-                    <span class="px-3 py-1 bg-ismart-green/10 text-ismart-green text-[10px] font-bold uppercase rounded-full">Biologi</span>
-                    <h3 class="mt-3 font-bold text-slate-900">Sel & Jaringan</h3>
-                    <p class="mt-1 text-slate-500 text-sm font-medium">20 Soal • 30 Menit</p>
-                    <button class="mt-4 w-full py-3 bg-slate-50 text-slate-900 font-bold rounded-xl hover:bg-ismart-blue hover:text-white transition-all duration-200">
-                        Mulai Kuis
-                    </button>
-                </div>
-             </div>
-             <div class="bg-white rounded-3xl overflow-hidden border border-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group">
-                <div class="h-32 bg-ismart-red/10 flex items-center justify-center group-hover:bg-ismart-red/20 transition-colors">
-                     <span class="text-4xl">🌍</span>
-                </div>
-                <div class="p-6">
-                    <span class="px-3 py-1 bg-ismart-red/10 text-ismart-red text-[10px] font-bold uppercase rounded-full">Geografi</span>
-                    <h3 class="mt-3 font-bold text-slate-900">Struktur Bumi</h3>
-                    <p class="mt-1 text-slate-500 text-sm font-medium">10 Soal • 15 Menit</p>
-                    <button class="mt-4 w-full py-3 bg-slate-50 text-slate-900 font-bold rounded-xl hover:bg-ismart-blue hover:text-white transition-all duration-200">
-                        Mulai Kuis
-                    </button>
-                </div>
-             </div>
-             <div class="bg-white rounded-3xl overflow-hidden border border-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group">
-                <div class="h-32 bg-ismart-purple/10 flex items-center justify-center group-hover:bg-ismart-purple/20 transition-colors">
-                     <span class="text-4xl">🧪</span>
-                </div>
-                <div class="p-6">
-                    <span class="px-3 py-1 bg-ismart-purple/10 text-ismart-purple text-[10px] font-bold uppercase rounded-full">Kimia</span>
-                    <h3 class="mt-3 font-bold text-slate-900">Tabel Periodik</h3>
-                    <p class="mt-1 text-slate-500 text-sm font-medium">25 Soal • 40 Menit</p>
-                    <button class="mt-4 w-full py-3 bg-slate-50 text-slate-900 font-bold rounded-xl hover:bg-ismart-blue hover:text-white transition-all duration-200">
-                        Mulai Kuis
-                    </button>
-                </div>
-             </div>
+            @endforeach
         </div>
     </section>
 </div>
